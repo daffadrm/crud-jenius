@@ -1,9 +1,10 @@
 const { response } = require('express')
 const User = require('../models/user')
+const clearCache = require ('../services/redis')
 
 // show list the user
 const readUser = (req, res, next) => {
-    User.find()
+    User.find().cache()
         .then(response => {
             res.json({
                 response
@@ -106,6 +107,7 @@ const addUser = async (req, res, next) => {
             message: 'An error'
         })
     })
+    
 }
 
 //update an user
